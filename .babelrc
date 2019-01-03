@@ -1,0 +1,9 @@
+{
+    "presets": ["@babel/env"],
+    "plugins": [
+        "jsx-v-model",
+        "transform-vue-jsx",
+        "@babel/transform-runtime",
+        "@babel/syntax-dynamic-import"
+    ]
+}

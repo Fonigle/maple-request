@@ -1,0 +1,32 @@
+{
+    "compileOnSave": false,
+    "include": ["@declaration", "dev", "src", "types"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "target": "es5",
+
+        "strict": true,
+
+        "jsx": "preserve",
+        "jsxFactory": "h",
+
+        "module": "esnext",
+        "moduleResolution": "node",
+
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+
+        "allowJs": true,
+        "resolveJsonModule": true,
+
+        "lib": ["dom", "es5", "es6", "es7", "esnext", "es2015.promise"],
+
+        "baseUrl": "./",
+        "paths": {
+            "@/*": ["./src/*"],
+            "mixins/*": ["./src/mixins/*"]
+        },
+
+        "sourceMap": true,
+    }
+}
