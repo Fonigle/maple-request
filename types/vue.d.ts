@@ -1,6 +1,4 @@
-import { PluginObject } from 'vue';
-
-import axios from 'axios';
+import Vue from 'vue';
 
 declare module 'vue/types/vue' {
     interface Vue {
@@ -12,9 +10,3 @@ declare module 'vue/types/vue' {
         $request(key: string, data: any): Promise<{}>;
     }
 }
-
-const MapleRequestFunctions: PluginObject<never> = {
-    install(Vue) {},
-};
-
-export default MapleRequestFunctions;

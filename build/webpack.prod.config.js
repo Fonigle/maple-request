@@ -12,7 +12,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = merge(baseCfg, {
     mode: 'production',
     entry: {
-        'maple-ui': [path.resolve("src/main.ts")]
+        'maple-request': [path.resolve("src/main.ts")]
     },
     output: {
         path: path.resolve('dist'),
@@ -30,7 +30,8 @@ module.exports = merge(baseCfg, {
 
     ],
     externals: {
-        vue: 'vue'
+        vue: 'vue',
+        axios: 'axios'
     },
     optimization: {
         minimizer: [
