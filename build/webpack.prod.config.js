@@ -30,7 +30,8 @@ module.exports = merge(baseCfg, {
 
     ],
     externals: {
-        vue: 'vue'
+        vue: 'vue',
+        axios: 'axios'
     },
     optimization: {
         minimizer: [
