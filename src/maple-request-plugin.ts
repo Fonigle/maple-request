@@ -44,7 +44,6 @@ const MapleRequestPlugin: PluginObject<MapleRequestPluginConfig> = {
                 };
 
                 api.baseUrl && (axiosConfig.baseURL = api.baseUrl);
-                console.log(axiosConfig);
 
                 instance.request(axiosConfig);
             } else {
