@@ -35,6 +35,18 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
             [key: string]: any[];
         } = {};
 
+        function traversalResponseQuery(query: string) {
+            const array = responseQuery[query];
+            if (array.length) {
+                if (array[0].status === true) {
+                    array[0].resolve(array[0].response);
+                    responseQuery[query].shift();
+
+                    traversalResponseQuery(query);
+                }
+            }
+        }
+
         /**
          * 请求函数主体
          *
@@ -48,6 +60,8 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
         Vue.prototype.$request = function(name: string, data: { [key: string]: any }, loading = false, query: string | boolean = false) {
             /** api列表中对应的配置项 */
             let api = apis[name];
+
+            options && options.fore && options.fore.request && options.fore.request.apply(this, [data]);
 
             if (api) {
                 /* 如果有对应的API配置项 */
@@ -70,10 +84,12 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                 if (api.textMark) {
                     return '';
                 } else {
-                    return new Promise((resolve, reject) => {
-                        /** loading标记 */
-                        let loadingStamp = '';
+                    /** loading标记 */
+                    let loadingStamp = '';
+                    /** loading标记 */
+                    let queryStamp = '';
 
+                    const pro = new Promise((resolve, reject) => {
                         if (!!loading) {
                             loadingStamp = `loading-${randomInt(10)}`;
 
@@ -82,6 +98,16 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                             }
 
                             loadingQuery.push(loadingStamp);
+                        }
+
+                        if (typeof query === 'string') {
+                            queryStamp = `query-${randomInt(12)}`;
+
+                            if (!responseQuery[query]) {
+                                responseQuery[query] = [];
+                            }
+
+                            responseQuery[query].push({ stamp: queryStamp, status: false, response: null, resolve: resolve });
                         }
 
                         /** axios配置项 */
@@ -99,10 +125,22 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                         instance
                             .request(axiosConfig)
                             .then(response => {
-                                if (!!query) {
+                                options && options.fore && options.fore.response && options.fore.response.apply(this, [response]);
+                                if (typeof query === 'string') {
+                                    console.log(`request ${data.q} end`);
+                                    const flt = responseQuery[query].filter(item => item.stamp === queryStamp);
+                                    if (flt.length) {
+                                        const that = flt[0];
+                                        that.response = response;
+                                        that.status = true;
+                                        traversalResponseQuery(query);
+                                    }
                                 } else {
                                     resolve(response);
                                 }
+                            })
+                            .catch(error => {
+                                reject(error);
                             })
                             .finally(() => {
                                 removeItem(loadingQuery, loadingStamp);
@@ -111,6 +149,8 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                                 }
                             });
                     });
+
+                    return pro;
                 }
             } else {
                 /* 如果没有对应配置则抛错 */

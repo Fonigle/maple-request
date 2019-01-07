@@ -12,6 +12,6 @@ declare module 'vue/types/vue' {
          * @returns {(string|Promise<{}>)}
          * @memberof Vue
          */
-        $request(key: string, data: { [key: string]: any }, loading: boolean | number, query: string | boolean): string | Promise<{}>;
+        $request(key: string, data: { [key: string]: any }, loading?: boolean | number, query?: string | boolean): Promise<any>;
     }
 }

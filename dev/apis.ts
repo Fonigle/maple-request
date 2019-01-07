@@ -2,18 +2,19 @@ import Vue, { Component } from 'vue';
 import MapleRequest, { api } from '@/main';
 
 let apis = {
-    login: api.post('/business/home/login'),
+    test: api.get('/'),
 };
 
 Vue.use(MapleRequest, {
     apis,
     create: {
         timeout: 20000,
-        withCredentials: true,
+        //withCredentials: true,
         headers: {
             'Content-Type': 'application/json',
         },
-        baseURL: '//job-api.ci.dev.lanxinka.com/1.0',
+        //baseURL: '//job-api.ci.dev.lanxinka.com/1.0',
+        baseURL: 'http://server.fonigle.com',
     },
     interceptors: {
         request: (config: any) => {

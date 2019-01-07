@@ -24,26 +24,16 @@ class MapleRequestConfig {
         start(): void;
         close(): void;
     };
+    /** 预处理 */
+    fore!: {
+        request: (data: { [key: string]: any }) => void;
+        response: (response: any) => void;
+    };
 }
 
 const MapleRequest: PluginObject<MapleRequestConfig> = {
     install(Vue, options) {
-        const {
-            create = {},
-            apis = {},
-            interceptors = {
-                request: (config: any) => config,
-                requestError: (error: any) => error,
-                response: (response: any) => response,
-                responseError: (responseError: any) => responseError,
-            },
-            loading = {
-                start: () => {},
-                end: () => {},
-            },
-        } = options || {};
-
-        Vue.use(MapleRequestFunctions, { create, apis, interceptors, loading });
+        Vue.use(MapleRequestFunctions, options);
     },
 };
 

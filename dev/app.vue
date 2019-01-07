@@ -10,7 +10,10 @@
     @Component
     export default class MyComponent extends Vue {
         mounted() {
-            this.$request('login', { username: 'test', mobile: "18516565544", password: "12345678" }, true);
+            for (let i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
+                console.log(`request ${i} start`);
+                this.$request('test', { q: i }, false, 'test').then(response => { console.log(`>>>  ${response.data}`); });
+            }
         }
     }
 </script>
