@@ -4,7 +4,7 @@ import { MapleRequestConfig } from './main';
 import MapleRequestApis, { MapleRequestApiConfig } from './maple-request-apis';
 import axios, { AxiosRequestConfig } from 'axios';
 
-import { randomInt, deepClone } from '@/utils';
+import { randomInt, deepClone, removeItem } from '@/utils';
 
 const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
     install(Vue, options) {
@@ -100,12 +100,12 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                             .request(axiosConfig)
                             .then(response => {
                                 if (!!query) {
-                                    resolve(response);
                                 } else {
+                                    resolve(response);
                                 }
                             })
                             .finally(() => {
-                                loadingQuery.removeItem(loadingStamp);
+                                removeItem(loadingQuery, loadingStamp);
                                 if (!loadingQuery.length) {
                                     options && options.loading && options.loading.close && options.loading.close.apply(this);
                                 }

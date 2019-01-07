@@ -1,8 +1,8 @@
 /**
- * 深拷贝
+ * deep copy
  *
  * @template T
- * @param {T} obj
+ * @param {T} obj object to copy
  * @returns {T}
  */
 function deepClone<T>(obj: T): T {
@@ -15,9 +15,9 @@ function deepClone<T>(obj: T): T {
         }
 
         if (obj instanceof Array) {
-            var len = obj.length;
+            const len = obj.length;
             let copy = new Array<T>();
-            for (var i = 0; i < len; ++i) {
+            for (let i = 0; i < len; ++i) {
                 copy[i] = deepClone(obj[i]);
             }
             return <T>(<unknown>copy);
@@ -25,7 +25,7 @@ function deepClone<T>(obj: T): T {
 
         if (obj instanceof Object) {
             let copy: T = <T>{};
-            for (var attr in obj) {
+            for (let attr in obj) {
                 if (obj.hasOwnProperty(attr)) copy[attr] = <T[Extract<keyof T, string>]>deepClone(obj[attr]);
             }
             return copy;

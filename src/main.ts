@@ -1,7 +1,5 @@
 import 'vue-tsx-support/enable-check';
 
-import './utils/defines';
-
 import { PluginObject } from 'vue';
 import MapleRequestFunctions from './maple-request-plugin';
 
