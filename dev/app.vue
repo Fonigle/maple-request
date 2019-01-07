@@ -10,7 +10,7 @@
     @Component
     export default class MyComponent extends Vue {
         mounted() {
-            this.$request('login', { mobile: "18516565544", password: "12345678" });
+            this.$request('login', { username: 'test', mobile: "18516565544", password: "12345678" }, true);
         }
     }
 </script>

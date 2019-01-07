@@ -1,8 +1,8 @@
-import Vue from 'vue';
+import Vue, { Component } from 'vue';
 import MapleRequest, { api } from '@/main';
 
 let apis = {
-    login: api.post('登录', '/business/home/login'),
+    login: api.post('/business/home/login'),
 };
 
 Vue.use(MapleRequest, {
@@ -21,8 +21,11 @@ Vue.use(MapleRequest, {
             return config;
         },
         response: (response: any) => {
-            console.log(response);
             return response;
         },
+    },
+    loading: {
+        start: function() {},
+        close: function() {},
     },
 });

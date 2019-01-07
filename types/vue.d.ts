@@ -7,6 +7,6 @@ declare module 'vue/types/vue' {
          * @param key 请求名称
          * @param data 数据/参数
          */
-        $request(key: string, data: any): Promise<{}>;
+        $request(key: string, data: any, loading: boolean | number): Promise<{}>;
     }
 }

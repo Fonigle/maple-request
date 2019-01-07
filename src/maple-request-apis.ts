@@ -1,22 +1,13 @@
 type RequestMethods = 'get' | 'post' | 'delete' | 'options' | 'head' | 'put' | 'patch';
 
 class MapleRequestApiConfig {
-    name: string;
     method: RequestMethods;
     url: string;
     baseUrl?: string;
     textMark: boolean;
     openMark: boolean;
 
-    constructor(
-        name: string = '',
-        method: RequestMethods = 'get',
-        url: string = '',
-        baseUrl?: string,
-        textMark: boolean = false,
-        openMark: boolean = false,
-    ) {
-        this.name = name;
+    constructor(method: RequestMethods = 'get', url: string = '', baseUrl?: string, textMark: boolean = false, openMark: boolean = false) {
         this.method = method;
         this.url = url;
         this.baseUrl = baseUrl;
@@ -26,20 +17,23 @@ class MapleRequestApiConfig {
 }
 
 const api = {
-    get(name: string, url: string, baseUrl?: string) {
-        return new MapleRequestApiConfig(name, 'get', url, baseUrl);
+    get(url: string, baseUrl?: string) {
+        return new MapleRequestApiConfig('get', url, baseUrl);
     },
-    post(name: string, url: string, baseUrl?: string) {
-        return new MapleRequestApiConfig(name, 'post', url, baseUrl);
+    post(url: string, baseUrl?: string) {
+        return new MapleRequestApiConfig('post', url, baseUrl);
     },
-    delete(name: string, url: string, baseUrl?: string) {
-        return new MapleRequestApiConfig(name, 'delete', url, baseUrl);
+    delete(url: string, baseUrl?: string) {
+        return new MapleRequestApiConfig('delete', url, baseUrl);
     },
-    text(name: string, method: RequestMethods, url: string, baseUrl: string) {
-        return new MapleRequestApiConfig(name, method, url, baseUrl, true);
+    put(url: string, baseUrl?: string) {
+        return new MapleRequestApiConfig('put', url, baseUrl);
     },
-    open(name: string, method: RequestMethods, url: string, baseUrl: string) {
-        return new MapleRequestApiConfig(name, method, url, baseUrl, false, true);
+    text(method: RequestMethods, url: string, baseUrl: string) {
+        return new MapleRequestApiConfig(method, url, baseUrl, true);
+    },
+    open(method: RequestMethods, url: string, baseUrl: string) {
+        return new MapleRequestApiConfig(method, url, baseUrl, false, true);
     },
 };
 
@@ -49,4 +43,4 @@ class MapleRequestApis {
 
 export default MapleRequestApis;
 
-export { api };
+export { api, MapleRequestApiConfig };
