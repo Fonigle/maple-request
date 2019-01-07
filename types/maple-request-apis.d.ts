@@ -1,7 +1,6 @@
 type RequestMethods = 'get' | 'post' | 'delete' | 'options' | 'head' | 'put' | 'patch';
 
 export declare interface MapleRequestApiConfig {
-    name: string;
     method: RequestMethods;
     url: string;
     baseUrl?: string;
@@ -10,11 +9,12 @@ export declare interface MapleRequestApiConfig {
 }
 
 export declare class api {
-    static get(name: string, url: string, baseUrl?: string): MapleRequestApiConfig;
-    static post(name: string, url: string, baseUrl?: string): MapleRequestApiConfig;
-    static delete(name: string, url: string, baseUrl?: string): MapleRequestApiConfig;
-    static text(name: string, method: RequestMethods, url: string, baseUrl: string): MapleRequestApiConfig;
-    static open(name: string, method: RequestMethods, url: string, baseUrl: string): MapleRequestApiConfig;
+    static get(url: string, baseUrl?: string): MapleRequestApiConfig;
+    static post(url: string, baseUrl?: string): MapleRequestApiConfig;
+    static delete(url: string, baseUrl?: string): MapleRequestApiConfig;
+    static put(url: string, baseUrl?: string): MapleRequestApiConfig;
+    static text(method: RequestMethods, url: string, baseUrl: string): MapleRequestApiConfig;
+    static open(method: RequestMethods, url: string, baseUrl: string): MapleRequestApiConfig;
 }
 
 export declare class MapleRequestApis {
