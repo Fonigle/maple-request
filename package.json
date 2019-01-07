@@ -1,6 +1,6 @@
 {
     "name": "maple-request",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "",
     "main": "dist/maple-request.js",
     "scripts": {
@@ -8,6 +8,11 @@
         "start": "cross-env MODE='development' webpack-dev-server --config build/webpack.dev.config.js",
         "dist": "cross-env MODE='production' webpack --config build/webpack.prod.config.js --progress --hide-modules"
     },
+    "files": [
+        "src",
+        "dist",
+        "types"
+    ],
     "repository": {
         "type": "git",
         "url": "git+https://github.com/Fonigle/maple-request.git"
