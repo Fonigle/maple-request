@@ -1,13 +1,14 @@
 {
     "name": "maple-request",
-    "version": "0.0.1",
-    "description": "",
+    "version": "0.2.2-alpha.1",
+    "description": "Axios Request Manager for Vue",
     "main": "dist/maple-request.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "cross-env MODE='development' webpack-dev-server --config build/webpack.dev.config.js",
         "dist": "cross-env MODE='production' webpack --config build/webpack.prod.config.js --progress --hide-modules"
     },
+    "types": "types/index.d.ts",
     "files": [
         "src",
         "dist",
@@ -17,9 +18,10 @@
         "type": "git",
         "url": "git+https://github.com/Fonigle/maple-request.git"
     },
+
     "keywords": [
-        "HTTPRequest",
-        "axios"
+        "axios",
+        "vue"
     ],
     "author": "Fonigle",
     "license": "MIT",
