@@ -18,6 +18,10 @@ export declare class MapleRequestOptions {
         start(): void;
         close(): void;
     };
+    fore: {
+        request: (data: { [key: string]: any }) => void;
+        response: (response: any) => void;
+    };
 }
 
 export declare class MapleRequest {
