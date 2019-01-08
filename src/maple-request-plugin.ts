@@ -1,7 +1,7 @@
 import { PluginObject } from 'vue';
 
 import { MapleRequestConfig } from './main';
-import MapleRequestApis, { MapleRequestApiConfig } from './maple-request-apis';
+import MapleRequestApis from './maple-request-apis';
 import axios, { AxiosRequestConfig } from 'axios';
 
 import { randomInt, deepClone, removeItem } from '@/utils';
@@ -64,7 +64,7 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
             options && options.fore && options.fore.request && options.fore.request.apply(this, [data]);
 
             if (api) {
-                /* 如果有对应的API配置项 */
+                /////// 如果有对应的API配置项
                 api = deepClone(api);
 
                 /************ 处理path参数 *********************/
@@ -89,7 +89,7 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                     /** loading标记 */
                     let queryStamp = '';
 
-                    const pro = new Promise((resolve, reject) => {
+                    return new Promise((resolve, reject) => {
                         if (!!loading) {
                             loadingStamp = `loading-${randomInt(10)}`;
 
@@ -127,7 +127,6 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                             .then(response => {
                                 options && options.fore && options.fore.response && options.fore.response.apply(this, [response]);
                                 if (typeof query === 'string') {
-                                    console.log(`request ${data.q} end`);
                                     const flt = responseQuery[query].filter(item => item.stamp === queryStamp);
                                     if (flt.length) {
                                         const that = flt[0];
@@ -140,7 +139,15 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                                 }
                             })
                             .catch(error => {
-                                reject(error);
+                                if (typeof query === 'string') {
+                                    const flt = responseQuery[query].filter(item => item.stamp === queryStamp);
+                                    if (flt.length) {
+                                        removeItem(responseQuery[query], flt[0]);
+                                        traversalResponseQuery(query);
+                                    }
+                                } else {
+                                    reject(error);
+                                }
                             })
                             .finally(() => {
                                 removeItem(loadingQuery, loadingStamp);
@@ -149,11 +156,9 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                                 }
                             });
                     });
-
-                    return pro;
                 }
             } else {
-                /* 如果没有对应配置则抛错 */
+                /////// 如果没有对应配置则抛错
                 throw new Error(`there is no api named ${name}`);
             }
         };

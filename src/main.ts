@@ -1,7 +1,7 @@
 import 'vue-tsx-support/enable-check';
 
 import { PluginObject } from 'vue';
-import MapleRequestFunctions from './maple-request-plugin';
+import MapleRequestPlugin from './maple-request-plugin';
 
 import MapleRequestApis, { api } from './maple-request-apis';
 
@@ -33,7 +33,7 @@ class MapleRequestConfig {
 
 const MapleRequest: PluginObject<MapleRequestConfig> = {
     install(Vue, options) {
-        Vue.use(MapleRequestFunctions, options);
+        Vue.use(MapleRequestPlugin, options);
     },
 };
 
