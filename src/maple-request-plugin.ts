@@ -57,7 +57,7 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
          *
          * @returns {(string | Promise<{}>)} 请求结果
          */
-        Vue.prototype.$request = function(name: string, data: { [key: string]: any }, loading = false, query: string | boolean = false) {
+        Vue.prototype.$request = function(name: string, data: { [key: string]: any }, loading = false, queue: string | boolean = false) {
             /** api列表中对应的配置项 */
             let api = apis[name];
 
@@ -100,14 +100,14 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                             loadingQuery.push(loadingStamp);
                         }
 
-                        if (typeof query === 'string') {
+                        if (typeof queue === 'string') {
                             queryStamp = `query-${randomInt(12)}`;
 
-                            if (!responseQuery[query]) {
-                                responseQuery[query] = [];
+                            if (!responseQuery[queue]) {
+                                responseQuery[queue] = [];
                             }
 
-                            responseQuery[query].push({ stamp: queryStamp, status: false, response: null, resolve: resolve });
+                            responseQuery[queue].push({ stamp: queryStamp, status: false, response: null, resolve: resolve });
                         }
 
                         /** axios配置项 */
@@ -126,24 +126,24 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                             .request(axiosConfig)
                             .then(response => {
                                 options && options.fore && options.fore.response && options.fore.response.apply(this, [response]);
-                                if (typeof query === 'string') {
-                                    const flt = responseQuery[query].filter(item => item.stamp === queryStamp);
+                                if (typeof queue === 'string') {
+                                    const flt = responseQuery[queue].filter(item => item.stamp === queryStamp);
                                     if (flt.length) {
                                         const that = flt[0];
                                         that.response = response;
                                         that.status = true;
-                                        traversalResponseQuery(query);
+                                        traversalResponseQuery(queue);
                                     }
                                 } else {
                                     resolve(response);
                                 }
                             })
                             .catch(error => {
-                                if (typeof query === 'string') {
-                                    const flt = responseQuery[query].filter(item => item.stamp === queryStamp);
+                                if (typeof queue === 'string') {
+                                    const flt = responseQuery[queue].filter(item => item.stamp === queryStamp);
                                     if (flt.length) {
-                                        removeItem(responseQuery[query], flt[0]);
-                                        traversalResponseQuery(query);
+                                        removeItem(responseQuery[queue], flt[0]);
+                                        traversalResponseQuery(queue);
                                     }
                                 } else {
                                     reject(error);
