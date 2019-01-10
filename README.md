@@ -8,7 +8,7 @@
 
 ## HomePage
 
-[theme.maple-ui.com](http://request.maple-ui.com)
+[request.maple-ui.com](http://request.maple-ui.com)
 
 ## Useage
 
@@ -21,7 +21,7 @@
 #### Quick Start
 
 index.js:
-
+ 
 ```js
 import Vue from 'vue';
 import MapleRequest from 'maple-request';
