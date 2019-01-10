@@ -1,16 +1,17 @@
+import { AxiosRequestConfig } from 'axios';
+
 type RequestMethods = 'get' | 'post' | 'delete' | 'options' | 'head' | 'put' | 'patch';
 
-class MapleRequestApiConfig {
-    method: RequestMethods;
-    url: string;
-    baseUrl?: string;
+interface MapleRequestApiConfig extends AxiosRequestConfig {
     textMark: boolean;
     openMark: boolean;
+}
 
-    constructor(method: RequestMethods = 'get', url: string = '', baseUrl?: string, textMark: boolean = false, openMark: boolean = false) {
+class MapleRequestApiConfig {
+    constructor(method: RequestMethods = 'get', url: string = '', baseURL?: string, textMark: boolean = false, openMark: boolean = false) {
         this.method = method;
         this.url = url;
-        this.baseUrl = baseUrl;
+        this.baseURL = baseURL;
         this.textMark = textMark;
         this.openMark = openMark;
     }
@@ -29,11 +30,20 @@ const api = {
     put(url: string, baseUrl?: string) {
         return new MapleRequestApiConfig('put', url, baseUrl);
     },
-    text(method: RequestMethods, url: string, baseUrl: string) {
-        return new MapleRequestApiConfig(method, url, baseUrl, true);
+    patch(url: string, baseUrl?: string) {
+        return new MapleRequestApiConfig('put', url, baseUrl);
     },
-    open(method: RequestMethods, url: string, baseUrl: string) {
-        return new MapleRequestApiConfig(method, url, baseUrl, false, true);
+    head(url: string, baseUrl?: string) {
+        return new MapleRequestApiConfig('put', url, baseUrl);
+    },
+    options(url: string, baseUrl?: string) {
+        return new MapleRequestApiConfig('put', url, baseUrl);
+    },
+    text(url: string, baseUrl: string) {
+        return new MapleRequestApiConfig('get', url, baseUrl, true);
+    },
+    open(url: string, baseUrl: string) {
+        return new MapleRequestApiConfig('get', url, baseUrl, false, true);
     },
 };
 

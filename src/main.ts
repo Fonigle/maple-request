@@ -25,7 +25,7 @@ class MapleRequestConfig {
         close(): void;
     };
     /** 预处理 */
-    fore!: {
+    pre!: {
         request: (data: { [key: string]: any }) => void;
         response: (response: any) => void;
     };

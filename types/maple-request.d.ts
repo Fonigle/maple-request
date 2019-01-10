@@ -18,7 +18,7 @@ export declare class MapleRequestOptions {
         start(): void;
         close(): void;
     };
-    fore: {
+    pre: {
         request: (data: { [key: string]: any }) => void;
         response: (response: any) => void;
     };

@@ -1,11 +1,10 @@
 /**
- * deep copy
+ * deep clone an object
  *
- * @template T
  * @param {T} obj object to copy
- * @returns {T}
+ * @returns deep copied object
  */
-function deepClone<T>(obj: T): T {
+export default function deepClone<T>(obj: T) {
     if (obj == null || typeof obj != 'object') return obj;
     else {
         if (obj instanceof Date) {
@@ -34,5 +33,3 @@ function deepClone<T>(obj: T): T {
 
     throw new Error('Unable to copy this object');
 }
-
-export default deepClone;

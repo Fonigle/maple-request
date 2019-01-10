@@ -61,24 +61,27 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
             /** api列表中对应的配置项 */
             let api = apis[name];
 
-            options && options.fore && options.fore.request && options.fore.request.apply(this, [data]);
+            options && options.pre && options.pre.request && options.pre.request.apply(this, [data]);
 
             if (api) {
                 /////// 如果有对应的API配置项
                 api = deepClone(api);
 
                 /************ 处理path参数 *********************/
-                if (/\${.*}/.test(api.url)) {
-                    let url = api.url;
-                    for (let item of Object.keys(data)) {
-                        const reg = new RegExp(`\\\${${item}}`);
-                        if (data[item] && reg.test(url)) {
-                            url = url.replace(reg, data[item]);
-                            delete data[item];
+                let url = api.url;
+                if (url) {
+                    if (/\${.*}/.test(url)) {
+                        for (let item of Object.keys(data)) {
+                            const reg = new RegExp(`\\\${${item}}`);
+                            if (data[item] && reg.test(url)) {
+                                url = url.replace(reg, data[item]);
+                                delete data[item];
+                            }
                         }
+                        api.url = url;
                     }
-                    api.url = url;
                 }
+
                 //********************************************/
 
                 if (api.textMark) {
@@ -119,13 +122,13 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                         if (api.method === 'get') axiosConfig.params = data;
                         else axiosConfig.data = data;
 
-                        api.baseUrl && (axiosConfig.baseURL = api.baseUrl); //不能直接写在上面的配置中，否则会覆盖全局设置
+                        api.baseURL && (axiosConfig.baseURL = api.baseURL); //不能直接写在上面的配置中，否则会覆盖全局设置
 
                         // 发送请求
                         instance
                             .request(axiosConfig)
                             .then(response => {
-                                options && options.fore && options.fore.response && options.fore.response.apply(this, [response]);
+                                options && options.pre && options.pre.response && options.pre.response.apply(this, [response]);
                                 if (typeof queue === 'string') {
                                     const flt = responseQuery[queue].filter(item => item.stamp === queryStamp);
                                     if (flt.length) {
