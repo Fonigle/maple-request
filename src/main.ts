@@ -27,7 +27,8 @@ class MapleRequestConfig {
     /** 预处理 */
     pre!: {
         request: (data: { [key: string]: any }) => void;
-        response: (response: any) => void;
+        response: (result: any) => void;
+        responseError: (error: any) => void;
     };
 }
 

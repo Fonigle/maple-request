@@ -1,6 +1,6 @@
 {
     "name": "maple-request",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "description": "Axios Request Manager for Vue",
     "main": "dist/maple-request.js",
     "scripts": {

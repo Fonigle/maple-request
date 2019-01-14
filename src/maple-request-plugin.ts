@@ -160,6 +160,7 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                                 }
                             })
                             .catch(error => {
+                                options && options.pre && options.pre.responseError && options.pre.responseError.apply(this, [error]);
                                 if (typeof queue === 'string') {
                                     const flt = responseQuery[queue].filter(item => item.stamp === queryStamp);
                                     if (flt.length) {
