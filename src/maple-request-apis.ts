@@ -39,10 +39,10 @@ const api = {
     options(url: string, baseUrl?: string) {
         return new MapleRequestApiConfig('put', url, baseUrl);
     },
-    text(url: string, baseUrl: string) {
+    text(url: string, baseUrl?: string) {
         return new MapleRequestApiConfig('get', url, baseUrl, true);
     },
-    open(url: string, baseUrl: string) {
+    open(url: string, baseUrl?: string) {
         return new MapleRequestApiConfig('get', url, baseUrl, false, true);
     },
 };

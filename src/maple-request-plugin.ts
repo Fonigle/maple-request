@@ -84,8 +84,26 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
 
                 //********************************************/
 
-                if (api.textMark) {
-                    return '';
+                if (api.textMark || api.openMark) {
+                    let result = '';
+
+                    let baseURL = '';
+                    if (options && options.create && options.create.baseURL) baseURL = options.create.baseURL;
+                    if (api.baseURL) baseURL = api.baseURL;
+
+                    const { url } = api;
+
+                    let paramString = '';
+
+                    for (let k in data) {
+                        paramString += `${k}=${data[k]}&`;
+                    }
+                    paramString = paramString.replace(/&$/, '');
+
+                    result = `${baseURL}${url}?${paramString}`;
+
+                    if (api.openMark) window.open(result);
+                    else return result;
                 } else {
                     /** loading标记 */
                     let loadingStamp = '';
@@ -154,7 +172,7 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                             })
                             .finally(() => {
                                 removeItem(loadingQuery, loadingStamp);
-                                if (!loadingQuery.length) {
+                                if (!loadingQuery.length && loading) {
                                     options && options.loading && options.loading.close && options.loading.close.apply(this);
                                 }
                             });

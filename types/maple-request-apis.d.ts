@@ -15,8 +15,8 @@ export declare class api {
     static patch(url: string, baseUrl?: string): MapleRequestApiConfig;
     static head(url: string, baseUrl?: string): MapleRequestApiConfig;
     static options(url: string, baseUrl?: string): MapleRequestApiConfig;
-    static text(url: string, baseUrl: string): MapleRequestApiConfig;
-    static open(url: string, baseUrl: string): MapleRequestApiConfig;
+    static text(url: string, baseUrl?: string): MapleRequestApiConfig;
+    static open(url: string, baseUrl?: string): MapleRequestApiConfig;
 }
 
 export declare class MapleRequestApis {

@@ -2,7 +2,7 @@ import Vue, { Component } from 'vue';
 import MapleRequest, { api } from '@/main';
 
 let apis = {
-    test: api.get('/'),
+    test: api.text('/upload'),
 };
 
 Vue.use(MapleRequest, {
