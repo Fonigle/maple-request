@@ -161,15 +161,16 @@ const MapleRequestPlugin: PluginObject<MapleRequestConfig> = {
                             })
                             .catch(error => {
                                 options && options.pre && options.pre.responseError && options.pre.responseError.apply(this, [error]);
+
                                 if (typeof queue === 'string') {
                                     const flt = responseQuery[queue].filter(item => item.stamp === queryStamp);
                                     if (flt.length) {
                                         removeItem(responseQuery[queue], flt[0]);
                                         traversalResponseQuery(queue);
                                     }
-                                } else {
-                                    reject(error);
                                 }
+
+                                reject(error);
                             })
                             .finally(() => {
                                 removeItem(loadingQuery, loadingStamp);
